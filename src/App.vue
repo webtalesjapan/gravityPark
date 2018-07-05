@@ -20,14 +20,30 @@
 </template>
 
 <script>
-export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  import firebase from "firebase";
+  import firebaseConfig from './firebaseConfig';
+
+  firebase.initializeApp(firebaseConfig);
+
+  // console.log(firebase);
+  const database = firebase.database();
+
+  const activitiesRef = database.ref('activities');
+  activitiesRef.once('value', (snapshot) => {
+    console.log(snapshot);
+    snapshot.forEach((child) => {
+      console.log(child.key, child.val());
+    })
+  });
+
+  export default {
+    name: 'app',
+    data () {
+      return {
+        msg: 'Welcome to Your Vue.js App'
+      }
     }
   }
-}
 </script>
 
 <style lang="scss">
