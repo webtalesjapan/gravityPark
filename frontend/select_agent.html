@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="keywords" content="Bootstrap, Landing page, Template, Registration, Landing">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="author" content="Grayrids">
+	<title>Crystal - Bootstrap 4 Template</title>
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/bootstrap-grid.min.css">
+	<link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/line-icons.css">
+	<link rel="stylesheet" href="css/owl.carousel.css">
+	<link rel="stylesheet" href="css/owl.theme.css">
+	<link rel="stylesheet" href="css/nivo-lightbox.css">
+	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/menu_sideslide.css">
+	<link rel="stylesheet" href="css/responsive.css">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/help.css">
+
+
+		<!-- Color CSS Styles  -->
+	<link rel="stylesheet" type="text/css" href="css/colors/orange.css" media="screen" />
+
+	</head>
+
+	<body>
+
+	<!-- Header Section Start -->
+	<header id="hero-area" data-stellar-background-ratio="0.5">
+		<div class="overlay" style="height:100vh"></div>
+		
+		<div id="faq">
+			<div class="container">
+				<div class="row space-100">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="contents">
+							
+
+							<h1 class="head-title" style="padding: 50px;">Select Agent</h1>
+							<div class="offset-md-3 col-md-6">
+								<form style="padding: 50px;">
+								  	<div class="form-group">
+								    	<label for="exampleFormControlSelect1">Select Agent</label>
+								    	<select class="form-control" id="exampleFormControlSelect1">
+								      		<option>Hiro</option>
+								      		<option>Tanaka</option>
+								      		<option>Yui</option>
+								    	</select>
+								  	</div>
+								</form>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- Header Section End -->
+
+	<!-- FAQ start -->
+
+	<!-- Footer Section Start -->
+	<footer>
+	<div class="container">
+	<div class="row">
+	<div class="col-md-12">
+	<div class="social-icons">
+	<ul>
+	<li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
+	<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
+	<li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
+	<li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+	<li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+	<li class="dribbble"><a href="#"><i class="fa fa-dribbble"></i></a></li>
+	</ul>
+	</div>
+	<div class="site-info">
+	<p>All copyrights reserved &copy; 2017 - Designed & Developed by <a rel="nofollow" href="https://uideck.com">UIdeck</a></p>
+	</div>
+	</div>
+	</div>
+	</div>
+	</footer>
+	<!-- Footer Section End -->
+
+	<!-- Go To Top Link -->
+	<a href="#" class="back-to-top">
+	<i class="lnr lnr-arrow-up"></i>
+	</a>
+
+	<div id="loader">
+	<div class="spinner">
+	<div class="double-bounce1"></div>
+	<div class="double-bounce2"></div>
+	</div>
+	</div>
+
+	<!-- jQuery first, then Tether, then Bootstrap JS. -->
+	<script src="js/jquery-min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/classie.js"></script>
+	<script src="js/jquery.mixitup.js"></script>
+	<script src="js/nivo-lightbox.js"></script>
+	<script src="js/owl.carousel.js"></script>
+	<script src="js/jquery.stellar.min.js"></script>
+	<script src="js/jquery.nav.js"></script>
+	<!--<script src="js/scrolling-nav.js"></script>    -->
+	<script src="js/jquery.easing.min.js"></script>
+	<script src="js/wow.js"></script>
+	<script src="js/jquery.vide.js"></script>
+	<script src="js/jquery.counterup.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/waypoints.min.js"></script>
+	<script src="js/form-validator.min.js"></script>
+	<script src="js/contact-form-script.js"></script>
+	<script src="js/main.js"></script>
+
+	<script>
+	$(function() {
+        $('.nav-tabs-dropdown').each(function(i, elm) {
+
+            $(elm).text($(elm).next('ul').find('li.active a').text());
+
+        });
+
+        $('.nav-tabs-dropdown').on('click', function(e) {
+
+            e.preventDefault();
+
+            $(e.target).toggleClass('open').next('ul').slideToggle();
+
+        });
+
+        $('#nav-tabs-wrapper a[data-toggle="tab"]').on('click', function(e) {
+
+            e.preventDefault();
+
+            $(e.target).closest('ul').hide().prev('a').removeClass('open').text($(this).text());
+
+        });
+	});
+	</script>
+	</body>
+</html>
