@@ -102,11 +102,11 @@ a:focus {
   outline: none;
 }
 a:not([href]):not([tabindex]) {
-  color: #fff;
+  color: #fe6f2e;
 }
 a:not([href]):not([tabindex]):focus,
 a:not([href]):not([tabindex]):hover {
-  color: #FE5000;
+  color: #B93B00;
 }
 /* ==========================================================================
    2.1 Section Title
@@ -1276,7 +1276,7 @@ button:focus {
 .form-control {
   width: 100%;
   margin-bottom: 20px;
-
+  padding: 12px !important;
   font-size: 14px;
   border-radius: 4px;
   -webkit-transition: all 0.3s;

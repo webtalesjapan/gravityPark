@@ -931,3 +931,7 @@ input[type="checkbox"] {
     background: #fe6f2e;
     transition: width 150ms ease 100ms;
 }
+
+#book_form .form-control {
+    margin: 20px 0;
+}

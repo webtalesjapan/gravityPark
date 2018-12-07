@@ -112,9 +112,6 @@ a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover{
 .meta-tags span a:hover{
 	color: #FE5000;
 }
-.form-control:focus{
-	box-shadow: 0 0 2px #FE5000;
-}
 #subscribe .sub_btn{
 	background: #FE5000;
 }
