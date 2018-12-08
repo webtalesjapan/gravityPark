@@ -1,3 +1,10 @@
+#landing-page {
+    background-image: url('../img/hero-index.jpeg');
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 #activity-swing {
     background-image: url('../img/swing.jpg');
     height:100vh;
@@ -546,9 +553,9 @@ header #menu-left #btn-menu #menu-burger #menu-circle {
 }
 
 .btn-orange {
-    background-color: #fff;
-    border-color: #fe6f2e;
-    color: #fe6f2e !important;
+    background-color: #fe6119;
+    border-color: #fe6119;
+    color: #fff !important;
 }
 
 .btn-orange:hover, .btn-orange:focus {
