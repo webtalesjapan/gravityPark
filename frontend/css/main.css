@@ -398,6 +398,7 @@ button:focus {
 }
 #hero-area .contents {
   padding: 100px 0 100px;
+  text-align: center;
 }
 #hero-area .contents h1 {
   color: #fff;
@@ -459,15 +460,10 @@ button:focus {
   background: #FE5000;
   opacity: 0.3;
 }
-#landing-hero .contents {
-  padding: 100px 0 100px;
-  text-align: center;
-  vertical-align: middle;
-}
 #hero-area .logo {
-  width: 45vh;
+  width: 35vh;
   margin: auto; 
-  padding: 40px; 
+  padding-bottom: 40px; 
   display: block;
 }
 
