@@ -438,6 +438,39 @@ button:focus {
 #hero-area .banner_bottom_btn i:hover {
   color: #FE5000;
 }
+
+/* Hero Image Overlays*/
+
+#hero-area .overlay-black {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background: #000;
+  opacity: 0.5;
+}
+#hero-area .overlay-orange {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background: #FE5000;
+  opacity: 0.3;
+}
+#landing-hero .contents {
+  padding: 100px 0 100px;
+  text-align: center;
+  vertical-align: middle;
+}
+#hero-area .logo {
+  width: 45vh;
+  margin: auto; 
+  padding: 40px; 
+  display: block;
+}
+
 /* ==========================================================================
    4. Navbar Style
    ========================================================================== */
