@@ -12,13 +12,6 @@
     background-attachment: fixed;
 }
 
-#toppage-banner {
-    background-image: url('../img/bridge.jpg');
-    width:100vw;
-    height: 100vh;
-    
-}
-
 #faq {
     background-image: url('../img/swing.jpg');
     /*height:300px;*/
