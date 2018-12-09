@@ -25,23 +25,44 @@
 
   firebase.initializeApp(firebaseConfig);
 
-  // console.log(firebase);
   const database = firebase.database();
-
-  const activitiesRef = database.ref('activities');
-  activitiesRef.once('value', (snapshot) => {
-    console.log(snapshot);
-    snapshot.forEach((child) => {
-      console.log(child.key, child.val());
-    })
-  });
 
   export default {
     name: 'app',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        msg: 'Welcome to Your Vue.js App',
+        activities: [],
+        activitiesSchedule : {},
+        activitiesPrices: {},
       }
+    },
+    methods: {
+      onSelectActivity: function (e) {
+
+      },
+      onSelectLocation: function (e) {
+
+      },
+      onSelectPerson: function (e) {
+
+      },
+    },
+    mounted: function() {
+      const activitiesRef = database.ref('activities');
+      activitiesRef.once('value', (snapshot) => {
+        this.activities = snapshot.toJSON();
+      });
+
+      const activitiesSchedule = database.ref('activity_schedule');
+      activitiesSchedule.once('value', (snapshot) => {
+        this.activitiesSchedule = snapshot.toJSON();
+      });
+
+      const activitiesPrices = database.ref('activity_prices');
+      activitiesPrices.once('value', (snapshot) => {
+        this.activitiesPrices = activitiesPrices.toJSON();
+      });
     }
   }
 </script>
