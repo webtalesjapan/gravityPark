@@ -4,7 +4,7 @@ const path = require('path');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../dist', 'booking.html'));
+  res.sendFile(path.resolve(__dirname, '../public', 'booking.html'));
 });
 
 module.exports = router;

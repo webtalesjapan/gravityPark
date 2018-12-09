@@ -73,4 +73,6 @@ dist/
 *.sln
 
 src/firebaseConfig.js
+public/static/js/built
+
 

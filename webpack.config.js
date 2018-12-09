@@ -5,8 +5,8 @@ const { VueLoaderPlugin } = require('vue-loader');
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './public/js'),
-    publicPath: '/public/jsr                                                                                                                                                                                                                                                                                                                                                                                                                                            ',
+    path: path.resolve(__dirname, './public/static/js/built'),
+    publicPath: '/public/static/js',
     filename: 'booking-build.js',
   },
   module: {
@@ -78,11 +78,15 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(png|jpg|gif|svg|jpeg)$/,
         loader: 'file-loader',
         options: {
           name: '[name].[ext]?[hash]',
         },
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf)$/,
+        loader: 'url-loader?limit=100000',
       },
     ],
   },
@@ -103,7 +107,7 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
   ],
-  devtool: '#eval-source-map',
+  devtool: 'source-map',
 };
 
 if (process.env.NODE_ENV === 'production') {
