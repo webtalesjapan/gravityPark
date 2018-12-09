@@ -440,7 +440,7 @@ button:focus {
   color: #FE5000;
 }
 
-/* Hero Image Overlays*/
+/* Hero Image Overlays and Logo */
 
 #hero-area .overlay-black {
   position: absolute;
@@ -449,6 +449,15 @@ button:focus {
   top: 0px;
   left: 0px;
   background: #000;
+  opacity: 0.5;
+}
+#hero-area .overlay-white {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  background: #fff;
   opacity: 0.5;
 }
 #hero-area .overlay-orange {
@@ -465,6 +474,67 @@ button:focus {
   margin: auto; 
   padding-bottom: 40px; 
   display: block;
+}
+
+/* Hero Video */
+#hero-video {
+  position: relative;
+  background-color: black;
+  height: 100vh;
+  min-height: 25rem;
+  width: 100%;
+  overflow: hidden;
+}
+
+#hero-video video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  z-index: 0;
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
+
+#hero-video .overlay-black {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+#hero-video .container {
+  position: relative;
+  z-index: 2;
+}
+
+#hero-video .logo {
+  height: 35vh;
+  margin: auto; 
+  padding-bottom: 40px; 
+  display: block;
+}
+
+#hero-video h1 {
+  font-size: 10vh;
+}
+
+@media (pointer: coarse) and (hover: none) {
+  #hero-video {
+    background: url('../img/swing.jpg') black no-repeat center center scroll;
+  }
+  #hero-video video {
+    display: none;
+  }
 }
 
 /* ==========================================================================
