@@ -83,75 +83,92 @@
           <div class="row p-4">
             <div class="container">
               <div class="book-form justify-content-md-center mb-10">
-                <h3 class="text-orange">
-                  Select Activity
-                </h3><br>
-                <div style="margin-bottom: 40px;">
-                  <select
-                    id="activity"
-                    class="chosen-select form-control form-control-chosen mt-4"
-                    data-placeholder="Activity you would like to do"
-                  >
-                    <option />
-                    <option>Option One</option>
-                    <option>Option Two</option>
-                    <option>Option Three</option>
-                    <option>Option Four</option>
-                    <option>Option Five</option>
-                  </select>
+                <div
+                  v-show="activeSection === 0"
+                  id="select-activity"
+                >
+                  <h3 class="text-orange">
+                    Select Activity
+                  </h3><br>
+                  <div style="margin-bottom: 40px;">
+                    <select
+                      id="activity"
+                      class="chosen-select form-control form-control-chosen mt-4"
+                      data-placeholder="Activity you would like to do"
+                    >
+                      <option />
+                      <option
+                        v-for="activity in activities"
+                        :key="activity.id"
+                        :value="activity.id"
+                      >
+                        {{ activity.name }}
+                      </option>
+                      <!--<option>Option One</option>-->
+                      <!--<option>Option Two</option>-->
+                      <!--<option>Option Three</option>-->
+                      <!--<option>Option Four</option>-->
+                      <!--<option>Option Five</option>-->
+                    </select>
+                  </div>
                 </div>
-                <h3 class="text-orange">
-                  Number of People
-                </h3><br>
-                <div class="form-group">
-                  <label class="lead">
-                    Adults - 14 - 60 Years
-                  </label><br>
-                  <label class="text-orange lead">
-                    ¥ 2.500
-                  </label><br>
-                  <input
-                    id="adults"
-                    type="text"
-                    value="1"
-                    name="adults"
-                  >
-                </div>
-                <div class="form-group">
-                  <label class="lead">
-                    Students
-                  </label><br>
-                  <label class="text-orange lead">
-                    ¥ 2.500
-                  </label><br>
-                  <input
-                    id="students"
-                    type="text"
-                    value="1"
-                    name="students"
-                  >
-                </div>
-                <div class="form-group">
-                  <label class="lead">
-                    Seniors
-                  </label><br>
-                  <label class="text-orange lead">
-                    ¥ 2.500
-                  </label><br>
-                  <input
-                    id="seniors"
-                    type="text"
-                    value="1"
-                    name="seniors"
-                  >
-                </div>
-                <div class="col-sm-12 text-center">
-                  <a
-                    href="book_date.html"
-                    class="btn btn-orange rounded"
-                  >
-                    Next
-                  </a>
+                <div
+                  v-show="activeSection === 1"
+                  id="select-number-people"
+                >
+                  <h3 class="text-orange">
+                    Number of People
+                  </h3><br>
+                  <div class="form-group">
+                    <label class="lead">
+                      Adults - 14 - 60 Years
+                    </label><br>
+                    <label class="text-orange lead">
+                      ¥ 2.500
+                    </label><br>
+                    <input
+                      id="adults"
+                      type="text"
+                      value="1"
+                      name="adults"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="lead">
+                      Students
+                    </label><br>
+                    <label class="text-orange lead">
+                      ¥ 2.500
+                    </label><br>
+                    <input
+                      id="students"
+                      type="text"
+                      value="1"
+                      name="students"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label class="lead">
+                      Seniors
+                    </label><br>
+                    <label class="text-orange lead">
+                      ¥ 2.500
+                    </label><br>
+                    <input
+                      id="seniors"
+                      type="text"
+                      value="1"
+                      name="seniors"
+                    >
+                  </div>
+                  <div class="col-sm-12 text-center">
+                    <a
+                      href="book_date.html"
+                      class="btn btn-orange rounded"
+                    >
+                      Next
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -159,7 +176,10 @@
         </div>
 
         <!-- Date section -->
-        <div id="save_date">
+        <div
+          v-show="activeSection === 2"
+          id="save_date"
+        >
           <div class="row mt-0 p-4">
             <div class="container">
               <div class="book-form justify-content-md-center mb-10">
@@ -192,7 +212,10 @@
         </div>
 
         <!-- time section -->
-        <div id="save_time">
+        <div
+          v-show="activeSection === 3"
+          id="save_time"
+        >
           <div class="row mt-0 p-4">
             <div class="container">
               <div class="book-form justify-content-md-center text-center mb-4">
@@ -277,7 +300,10 @@
         </div>
 
         <!-- Form -->
-        <div id="book_form">
+        <div
+          v-show="activeSection === 4"
+          id="book_form"
+        >
           <div class="contact-form">
             <form
               id="contactForm"
@@ -520,21 +546,27 @@ import firebaseConfig from './firebaseConfig';
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
+const $ = window.$;
 
 export default {
   name: 'App',
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      selectedActivity: '',
       activities: [],
       activitiesSchedule: {},
       activitiesPrices: {},
+      activeSection: 0,
     };
   },
   mounted() {
     const activitiesRef = database.ref('activities');
     activitiesRef.once('value', (snapshot) => {
       this.activities = snapshot.toJSON();
+      this.$nextTick(() => {
+        $('#activity').trigger('chosen:updated');
+        $('#activity').chosen().change(this.onSelectActivity);
+      });
     });
 
     const activitiesSchedule = database.ref('activity_schedule');
@@ -549,16 +581,23 @@ export default {
   },
   methods: {
     onSelectActivity(e) {
-
+      console.log('On select activity', e);
+      console.log('Selected id: ', e.target.value);
+      console.log('Activity Name : ', Object.values(this.activities).filter(val => val.id === e.target.value)[0].name);
+      this.activeSection = 1; // Go to choose number of people.
     },
-    onSelectLocation(e) {
-
-    },
-    onSelectPerson() {
-
-    },
+    // onSelectLocation(e) {
+    //
+    // },
+    // onSelectPerson() {
+    //
+    // },
   },
 };
+
+// window.onSelectActivity = () => {
+//   console.log('On select activity');
+// };
 </script>
 
 <style lang="scss">
