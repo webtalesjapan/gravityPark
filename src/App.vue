@@ -60,7 +60,7 @@
     <!-- Header Section End -->
 
     <!-- Main Content Start -->
-    <div class="row">
+    <div class="booking-panes">
       <div class="col-md-9 col-sm-12">
         <div class="text-center mb-4">
           <h1 class="head-title d-inline-block m-4 pt-2 text-orange font-weight-bold">
@@ -124,12 +124,12 @@
                       Adults - 14 - 60 Years
                     </label><br>
                     <label class="text-orange lead">
-                      ¥ 2.500
+                      ¥ {{ selectedActivityPrices.adults }}
                     </label><br>
                     <input
                       id="adults"
+                      v-model="selectedPeople.adults"
                       type="text"
-                      value="1"
                       name="adults"
                     >
                   </div>
@@ -138,33 +138,34 @@
                       Students
                     </label><br>
                     <label class="text-orange lead">
-                      ¥ 2.500
+                      ¥ {{ selectedActivityPrices.students }}
                     </label><br>
                     <input
                       id="students"
+                      v-model="selectedPeople.students"
                       type="text"
-                      value="1"
                       name="students"
                     >
                   </div>
                   <div class="form-group">
                     <label class="lead">
-                      Seniors
+                      children
                     </label><br>
                     <label class="text-orange lead">
-                      ¥ 2.500
+                      ¥ {{ selectedActivityPrices.children }}
                     </label><br>
                     <input
-                      id="seniors"
+                      id="children"
+                      v-model="selectedPeople.children"
                       type="text"
-                      value="1"
-                      name="seniors"
+                      name="children"
                     >
                   </div>
                   <div class="col-sm-12 text-center">
                     <a
-                      href="book_date.html"
+                      v-show="canSelectPeople"
                       class="btn btn-orange rounded"
+                      @click="onSelectPeople"
                     >
                       Next
                     </a>
@@ -188,20 +189,24 @@
                 </h3><br>
                 <div class="col-sm-12 mb-4">
                   <div class="calendar" />
-                  <div class="box">
-                    You selected <span> DATE </span>
+                  <div
+                    v-show="!!selectedDate"
+                    class="box"
+                  >
+                    You selected <span> {{ selectedDate && selectedDate.format("dddd, MMMM Do YYYY") }} </span>
                   </div>
                 </div>
                 <div class="col-sm-12 text-center">
                   <a
-                    href="book_date.html"
                     class="btn btn-orange rounded"
+                    @click="onCalendarBack"
                   >
                     Back
                   </a>
                   <a
-                    href="book_time.html"
+                    v-show="!!selectedDate"
                     class="btn btn-orange rounded"
+                    @click="onSelectDate"
                   >
                     Next
                   </a>
@@ -220,7 +225,7 @@
             <div class="container">
               <div class="book-form justify-content-md-center text-center mb-4">
                 <h3 class="text-orange">
-                  5th OCTOBER 2018
+                  {{ selectedDate && selectedDate.format("Do MMMM YYYY") }}
                 </h3><br>
                 <small class="lead">
                   Select time
@@ -228,56 +233,16 @@
                 <div class="col-sm-12 mb-4">
                   <table class="time-calendar list-group list-group-flush">
                     <tbody class="list-group-item justify-content-between">
-                      <tr class="d-flex justify-content-between lead font-weight-bold">
-                        <td>9:30 am</td>
+                      <tr
+                        v-for="time in availableActivitySchedule"
+                        :key="time"
+                        class="d-flex justify-content-between lead font-weight-bold"
+                      >
+                        <td>{{ formatTime(time) }}</td>
                         <td>
                           <a
-                            href="book_merchandise.html"
                             class="btn btn-orange rounded"
-                          >
-                            BOOK
-                          </a>
-                        </td>
-                      </tr>
-                      <tr class="d-flex justify-content-between lead font-weight-bold">
-                        <td>9:30 am</td>
-                        <td>
-                          <a
-                            href="book_merchandise.html"
-                            class="btn btn-orange rounded"
-                          >
-                            BOOK
-                          </a>
-                        </td>
-                      </tr>
-                      <tr class="d-flex justify-content-between lead font-weight-bold">
-                        <td>9:30 am</td>
-                        <td>
-                          <a
-                            href="book_merchandise.html"
-                            class="btn btn-orange rounded"
-                          >
-                            BOOK
-                          </a>
-                        </td>
-                      </tr>
-                      <tr class="d-flex justify-content-between lead font-weight-bold">
-                        <td>9:30 am</td>
-                        <td>
-                          <a
-                            href="book_merchandise.html"
-                            class="btn btn-orange rounded"
-                          >
-                            BOOK
-                          </a>
-                        </td>
-                      </tr>
-                      <tr class="d-flex justify-content-between lead font-weight-bold">
-                        <td>9:30 am</td>
-                        <td>
-                          <a
-                            href="book_merchandise.html"
-                            class="btn btn-orange rounded"
+                            @click="onSelectTime(time)"
                           >
                             BOOK
                           </a>
@@ -288,8 +253,8 @@
                 </div>
                 <div class="col-sm-12 text-center">
                   <a
-                    href="book_date.html"
                     class="btn btn-orange rounded"
+                    @click="onTimeBack"
                   >
                     Back
                   </a>
@@ -319,6 +284,7 @@
                   </label><br>
                   <input
                     id="first-name"
+                    v-model="formDetails.firstName"
                     type="text"
                     placeholder="Your First Name"
                     class="form-control"
@@ -334,6 +300,7 @@
                   </label><br>
                   <input
                     id="last-name"
+                    v-model="formDetails.lastName"
                     type="text"
                     placeholder="Your Last Name"
                     class="form-control"
@@ -349,6 +316,7 @@
                   </label><br>
                   <input
                     id="email"
+                    v-model="formDetails.email"
                     type="text"
                     placeholder="Your Email Address"
                     class="form-control"
@@ -364,7 +332,8 @@
                   </label><br>
                   <input
                     id="phone"
-                    type="text"
+                    v-model="formDetails.phone"
+                    type="number"
                     placeholder="Your Phone Number"
                     class="form-control"
                     required
@@ -378,6 +347,7 @@
                   </label><br>
                   <textarea
                     id="message"
+                    v-model="formDetails.special"
                     class="form-control"
                     placeholder="Any Special Requirements"
                     rows="1"
@@ -391,6 +361,7 @@
                       <div>
                         <input
                           id="check"
+                          v-model="formDetails.termsCheck"
                           type="checkbox"
                           name="check"
                           value=""
@@ -403,10 +374,18 @@
                   </div>
                 </div>
                 <div class="submit-button text-center">
+                  <a
+                    class="btn btn-orange rounded"
+                    @click="onFormBack"
+                  >
+                    Back
+                  </a>
                   <button
                     id="submit"
                     class="btn btn-common"
                     type="submit"
+                    :disabled="!formDetails.termsCheck && 'disabled'"
+                    @click.prevent="onSubmitForm"
                   >
                     Place Order
                   </button>
@@ -426,7 +405,7 @@
           <div class="d-md-none col-sm-12">
             <h6 class="text-gray-dark pt-4 pb-4 mb-0 ">
               <div class="lead font-weight-bold text-center">
-                TOTAL ¥ 0.00
+                TOTAL ¥ {{ totalCost }}
               </div>
             </h6>
           </div>
@@ -439,13 +418,55 @@
           </h2>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">
+          <li
+            v-show="selectedActivity.id"
+            class="list-group-item"
+          >
             <div class="row d-flex justify-content-between lead">
               <div class="col-sm-6">
-                abc Ticket
+                {{ selectedActivity.name }}
+              </div>
+              <!--<div class="col-sm-6 pull-right">-->
+              <!--¥ 0.00-->
+              <!--</div>-->
+            </div>
+          </li>
+          <li
+            v-if="selectedPeople.adults"
+            class="list-group-item"
+          >
+            <div class="row d-flex justify-content-between lead">
+              <div class="col-sm-6">
+                Adults
               </div>
               <div class="col-sm-6 pull-right">
-                ¥ 0.00
+                ¥ {{ activityCosts.adults }}
+              </div>
+            </div>
+          </li>
+          <li
+            v-if="selectedPeople.students"
+            class="list-group-item"
+          >
+            <div class="row d-flex justify-content-between lead">
+              <div class="col-sm-6">
+                Students
+              </div>
+              <div class="col-sm-6 pull-right">
+                ¥ {{ activityCosts.students }}
+              </div>
+            </div>
+          </li>
+          <li
+            v-if="selectedPeople.children"
+            class="list-group-item"
+          >
+            <div class="row d-flex justify-content-between lead">
+              <div class="col-sm-6">
+                Children
+              </div>
+              <div class="col-sm-6 pull-right">
+                ¥ {{ activityCosts.children }}
               </div>
             </div>
           </li>
@@ -456,7 +477,7 @@
                   TOTAL
                 </div>
                 <div class="col-sm-6 pull-right">
-                  ¥ 0.00
+                  ¥ {{ totalCost }}
                 </div>
               </div>
             </h6>
@@ -540,24 +561,57 @@
 </template>
 
 <script>
+/* eslint-disable max-len */
+
+// TODO : Placeholder for no time slots available.
+// TODO : Form submitted screen.
+// TODO : Add another layer of vacancy to booked timings.
+
 import firebase from 'firebase';
 import firebaseConfig from './firebaseConfig';
 
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
-const $ = window.$;
+const { $, moment } = window;
+
+const defaultLocationId = 'f1af8dcb-6033-4884-b65d-1530d0eb52fc'; // Default location id for now.
 
 export default {
   name: 'App',
   data() {
     return {
-      selectedActivity: '',
+      selectedActivity: {
+        id: '',
+      },
+      selectedLocation: defaultLocationId,
       activities: [],
       activitiesSchedule: {},
       activitiesPrices: {},
       activeSection: 0,
+      selectedActivityPrices: {},
+      selectedPeople: {
+        adults: 0,
+        students: 0,
+        children: 0,
+      },
+      activityCosts: {
+        adults: 0,
+        students: 0,
+        children: 0,
+      },
+      selectedAdults: 0,
+      selectedDate: null,
+      canSelectPeople: false,
+      availableActivitySchedule: [],
+      selectedTime: '',
+      formDetails: {},
     };
+  },
+  computed: {
+    totalCost() {
+      return Object.values(this.activityCosts).reduce((a, b) => a + b); // FIXME : Assuming a single activity selection for now.
+    },
   },
   mounted() {
     const activitiesRef = database.ref('activities');
@@ -576,28 +630,140 @@ export default {
 
     const activitiesPrices = database.ref('activity_prices');
     activitiesPrices.once('value', (snapshot) => {
-      this.activitiesPrices = activitiesPrices.toJSON();
+      this.activitiesPrices = snapshot.toJSON();
+    });
+
+
+    // TouchSpin counter for number of people
+    $("input[name='adults']").TouchSpin({
+      min: 0,
+      max: 20,
+      step: 1,
+    }).on('touchspin.on.startspin', (e) => {
+      this.selectedPeople.adults = Number(e.target.value);
+      this.onSelectPeopleCount();
+    });
+
+    $("input[name='students']").TouchSpin({
+      min: 0,
+      max: 20,
+      step: 1,
+    }).on('touchspin.on.startspin', (e) => {
+      this.selectedPeople.students = Number(e.target.value);
+      this.onSelectPeopleCount();
+    });
+    $("input[name='children']").TouchSpin({
+      min: 0,
+      max: 20,
+      step: 1,
+    }).on('touchspin.on.startspin', (e) => {
+      this.selectedPeople.children = Number(e.target.value);
+      this.onSelectPeopleCount();
+    });
+
+
+    // Calendar
+    const self = this;
+    $(() => {
+      $('.calendar').pignoseCalendar({
+        select(date) {
+          /**
+           * @params this Element
+           * @params date moment[]
+           * @params context PignoseCalendarContext
+           * @returns void
+           */
+
+          const [selectedDate] = date;
+          self.selectedDate = null;
+          if (selectedDate && selectedDate.isSameOrAfter(moment(Date.now()))) { // TODO: Refine the validation. Specially for current date check
+            self.selectedDate = selectedDate;
+          }
+        },
+      });
     });
   },
   methods: {
     onSelectActivity(e) {
-      console.log('On select activity', e);
-      console.log('Selected id: ', e.target.value);
-      console.log('Activity Name : ', Object.values(this.activities).filter(val => val.id === e.target.value)[0].name);
+      [this.selectedActivity] = Object.values(this.activities).filter(val => val.id === e.target.value);
+      this.selectedActivityPrices = this.activitiesPrices[this.selectedActivity.id][this.selectedLocation];
+      this.selectedActivitySchedule = this.activitiesSchedule[this.selectedActivity.id][this.selectedLocation];
       this.activeSection = 1; // Go to choose number of people.
+    },
+    onSelectPeopleCount() {
+      const { selectedActivityPrices } = this;
+      this.activityCosts = {
+        adults: Number(selectedActivityPrices.adults) * Number(this.selectedPeople.adults),
+        students: Number(selectedActivityPrices.students) * Number(this.selectedPeople.students),
+        children: Number(selectedActivityPrices.children) * Number(this.selectedPeople.children),
+      };
+      const selectedPeople = Object.values(this.selectedPeople).reduce((a, b) => a + b);
+      this.canSelectPeople = !!selectedPeople;
     },
     // onSelectLocation(e) {
     //
     // },
-    // onSelectPerson() {
-    //
-    // },
+    onSelectPeople() {
+      this.activeSection = 2; // Go to calendar
+    },
+    onCalendarBack() {
+      this.activeSection = 1; // Go to choose number of people.
+    },
+    onSelectDate() {
+      const { selectedActivitySchedule: activitySchedule } = this;
+      const bookedActivitesRef = database.ref(`booked_activities/${this.selectedActivity.id}/${this.selectedLocation}/${this.selectedDate.valueOf()}`);
+      bookedActivitesRef.once('value', (snapshot) => {
+        const snapshotVal = snapshot.toJSON();
+        if (snapshotVal) {
+          this.availableActivitySchedule = Object.values(activitySchedule).filter(val => Object.values(snapshotVal).indexOf(val) === -1);
+        } else {
+          this.availableActivitySchedule = Object.values(activitySchedule);
+        }
+        this.activeSection = 3; // Go to choose time.
+      });
+    },
+    onTimeBack() {
+      this.activeSection = 2; // Go to calendar
+    },
+    onSelectTime(time) {
+      this.selectedTime = time;
+      this.activeSection = 4; // Go to form.
+    },
+    onFormBack() {
+      this.activeSection = 3; // Go to choose time.
+    },
+    onSubmitForm() {
+      // Add time to booked times.
+      const finalDetails = {
+        name: `${this.formDetails.firstName} ${this.formDetails.lastName}`,
+        phoneNumber: this.formDetails.phone,
+        specialRequests: this.formDetails.special,
+        activityName: this.selectedActivity.name,
+        totalCost: this.totalCost,
+        activityDate: this.selectedDate.format('Do MMMM YYYY'),
+        activityTime: this.selectedTime,
+        email: this.formDetails.email,
+      };
+
+      $.post('/api/form_submit', finalDetails, (res) => {
+        if (Number(res.response.status) === 200) {
+          console.log('Submit Success');
+          console.log(res);
+          this.activeSection = 5; // Form Submitted Page.
+        } else {
+          console.log('Submit Failed');
+        }
+      });
+    },
+    formatTime(val) {
+      const time = val.toString().padStart(4, '0');
+      const hrValue = Number([time[0], time[1]].join(''));
+      const amPm = hrValue < 12 ? 'AM' : 'PM';
+      const hrValueConverted = hrValue % 12 || 12;
+      return [hrValueConverted, ':', time[2], time[3], ' ', amPm].join('');
+    },
   },
 };
-
-// window.onSelectActivity = () => {
-//   console.log('On select activity');
-// };
 </script>
 
 <style lang="scss">
@@ -626,5 +792,9 @@ li {
 
 a {
   color: #42b983;
+}
+
+.booking-panes {
+  display: flex;
 }
 </style>

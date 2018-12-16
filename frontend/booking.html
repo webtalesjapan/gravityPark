@@ -309,22 +309,7 @@
 	<script src="js/plugin/spinner/jquery.bootstrap-touchspin.js"></script>
 
 	<script>
-		//TouchSpin counter for number of people
-		$("input[name='adults']").TouchSpin({
-			min: 0,
-			max: 20,
-			step: 1,
-		});
-		$("input[name='students']").TouchSpin({
-			min: 0,
-			max: 20,
-			step: 1,
-		});
-		$("input[name='seniors']").TouchSpin({
-			min: 0,
-			max: 20,
-			step: 1,
-		});
+
 
 		//Calendar
         $(function() {
@@ -333,12 +318,6 @@
 
         //dropdown menu
         $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
-        // document.querySelector('.chosen-select').addEventListener("change", (e) => {
-        //   console.log('Select changed!', e);
-        // });
-        // $('.chosen-select').chosen().change((e) => {
-        //   console.log('Select changed!', e);
-        // });
 	</script>
 
 </body>

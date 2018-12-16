@@ -1506,7 +1506,7 @@ footer {
   padding: 60px 0px 30px;
   text-align: center;
   bottom: 0;
-  position: fixed;
+  /*position: fixed;*/
   width: 100vw;
 }
 .site-info p {
