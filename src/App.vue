@@ -104,11 +104,6 @@
                       >
                         {{ activity.name }}
                       </option>
-                      <!--<option>Option One</option>-->
-                      <!--<option>Option Two</option>-->
-                      <!--<option>Option Three</option>-->
-                      <!--<option>Option Four</option>-->
-                      <!--<option>Option Five</option>-->
                     </select>
                   </div>
                 </div>
@@ -119,46 +114,22 @@
                   <h3 class="text-orange">
                     Number of People
                   </h3><br>
-                  <div class="form-group">
+                  <div
+                    v-for="(userType,key) in validUserTypes"
+                    :key="key"
+                    class="form-group"
+                  >
                     <label class="lead">
-                      Adults - 14 - 60 Years
+                      {{ userType.label }}
                     </label><br>
                     <label class="text-orange lead">
-                      ¥ {{ selectedActivityPrices.adults }}
+                      ¥ {{ selectedActivityPrices[userType.type] }}
                     </label><br>
                     <input
-                      id="adults"
-                      v-model="selectedPeople.adults"
+                      :id="userType.type"
+                      v-model="selectedPeople[userType.type]"
                       type="text"
-                      name="adults"
-                    >
-                  </div>
-                  <div class="form-group">
-                    <label class="lead">
-                      Students
-                    </label><br>
-                    <label class="text-orange lead">
-                      ¥ {{ selectedActivityPrices.students }}
-                    </label><br>
-                    <input
-                      id="students"
-                      v-model="selectedPeople.students"
-                      type="text"
-                      name="students"
-                    >
-                  </div>
-                  <div class="form-group">
-                    <label class="lead">
-                      children
-                    </label><br>
-                    <label class="text-orange lead">
-                      ¥ {{ selectedActivityPrices.children }}
-                    </label><br>
-                    <input
-                      id="children"
-                      v-model="selectedPeople.children"
-                      type="text"
-                      name="children"
+                      :name="userType.type"
                     >
                   </div>
                   <div class="col-sm-12 text-center">
@@ -606,14 +577,22 @@ export default {
       availableActivitySchedule: [],
       selectedTime: '',
       formDetails: {},
+      userTypes: [],
     };
   },
   computed: {
     totalCost() {
       return Object.values(this.activityCosts).reduce((a, b) => a + b); // FIXME : Assuming a single activity selection for now.
     },
+    validUserTypes() {
+      return this.userTypes.filter((val) => {
+        const price = this.selectedActivityPrices[val.type];
+        return price != null;
+      });
+    },
   },
   mounted() {
+    const self = this;
     const activitiesRef = database.ref('activities');
     activitiesRef.once('value', (snapshot) => {
       this.activities = snapshot.toJSON();
@@ -633,37 +612,12 @@ export default {
       this.activitiesPrices = snapshot.toJSON();
     });
 
-
-    // TouchSpin counter for number of people
-    $("input[name='adults']").TouchSpin({
-      min: 0,
-      max: 20,
-      step: 1,
-    }).on('touchspin.on.startspin', (e) => {
-      this.selectedPeople.adults = Number(e.target.value);
-      this.onSelectPeopleCount();
+    const userTypes = database.ref('user_types');
+    userTypes.once('value', (snapshot) => {
+      this.userTypes = snapshot.val();
     });
-
-    $("input[name='students']").TouchSpin({
-      min: 0,
-      max: 20,
-      step: 1,
-    }).on('touchspin.on.startspin', (e) => {
-      this.selectedPeople.students = Number(e.target.value);
-      this.onSelectPeopleCount();
-    });
-    $("input[name='children']").TouchSpin({
-      min: 0,
-      max: 20,
-      step: 1,
-    }).on('touchspin.on.startspin', (e) => {
-      this.selectedPeople.children = Number(e.target.value);
-      this.onSelectPeopleCount();
-    });
-
 
     // Calendar
-    const self = this;
     $(() => {
       $('.calendar').pignoseCalendar({
         minDate: moment().format('YYYY-MM-DD'),
@@ -690,6 +644,19 @@ export default {
       this.selectedActivityPrices = this.activitiesPrices[this.selectedActivity.id][this.selectedLocation];
       this.selectedActivitySchedule = this.activitiesSchedule[this.selectedActivity.id][this.selectedLocation];
       this.activeSection = 1; // Go to choose number of people.
+
+      this.$nextTick(() => {
+        this.validUserTypes.forEach((val) => {
+          $(`input[name=${val.type}]`).TouchSpin({
+            min: 0,
+            max: 20,
+            step: 1,
+          }).on('touchspin.on.startspin', (e) => {
+            this.selectedPeople[val.type] = Number(e.target.value);
+            this.onSelectPeopleCount();
+          });
+        });
+      });
     },
     onSelectPeopleCount() {
       const { selectedActivityPrices } = this;
