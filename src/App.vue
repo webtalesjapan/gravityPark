@@ -666,6 +666,7 @@ export default {
     const self = this;
     $(() => {
       $('.calendar').pignoseCalendar({
+        minDate: moment().format('YYYY-MM-DD'),
         select(date) {
           /**
            * @params this Element
