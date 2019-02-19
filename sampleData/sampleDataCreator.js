@@ -4,7 +4,7 @@ const structure = [
     users: [
       {
         'repeat(15)': {
-          id: '{{guid()}}',
+          id: '{{objectId()}}',
           name: '{{firstName()}} {{surname()}}',
           email: '{{firstName()}}_{{lorem(1, "words")}}@{{lorem(1, "words")}}.com',
           sex: '{{integer(0, 1)}}',
@@ -12,20 +12,31 @@ const structure = [
         },
       },
     ],
+    user_types: [
+      {
+        label: 'Adults',
+        type: 'adults',
+      },
+      {
+        label: 'Children',
+        type: 'children',
+      },
+    ],
     activities: [
       {
         'repeat(10)': {
-          id: '{{guid()}}',
+          id: '{{objectId()}}',
           name: '{{lorem(1, "words")}}',
           durationInMinutes: '{{random(60, 75, 90, 105, 120, 150, 180)}}',
           breakTime: '{{random(15, 30, 60)}}',
+          maxPeople: '{{random(15, 30, 60)}}',
         },
       },
     ],
     locations: [
       {
         'repeat(3)': {
-          id: '{{guid()}}',
+          id: '{{objectId()}}',
           name: '{{city()}}',
         },
       },
@@ -36,8 +47,8 @@ const structure = [
         this.locations.forEach((location) => {
           obj[activity.id] = obj[activity] || {};
           obj[activity.id][location.id] = obj[activity.id][location.id] || {};
-          ['adults', 'children', 'students'].forEach((type) => {
-            obj[activity.id][location.id][type] = `${tags.integer(2000, 9000)}`;
+          this.user_types.forEach((userType) => {
+            obj[activity.id][location.id][userType.type] = `${tags.integer(2000, 9000)}`;
           });
         });
       });
@@ -46,7 +57,7 @@ const structure = [
     agents: [
       {
         'repeat(4)': {
-          id: '{{guid()}}',
+          id: '{{objectId()}}',
           name: '{{firstName()}} {{surname()}}',
           company: '{{company()}}',
           email: '{{firstName()}}_{{lorem(1, "words")}}@{{lorem(1, "words")}}.com',
@@ -88,7 +99,10 @@ const structure = [
             const randomFutureDate = new Date(+(new Date()) - Math.floor(Math.random() * 10000000000));
             const dateString = randomFutureDate.getTime();
             const bookedTimings = this.activity_schedule[act.id][loc.id].filter(time => !!Math.round(Math.random()));
-            obj[act.id][loc.id][dateString] = bookedTimings;
+            obj[act.id][loc.id][dateString] = {};
+            bookedTimings.forEach((time) => {
+              obj[act.id][loc.id][dateString][time] = `${tags.integer(0, act.maxPeople)}`;
+            });
           }
         });
       });
