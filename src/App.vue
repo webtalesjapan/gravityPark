@@ -536,7 +536,8 @@
 
 // TODO : Placeholder for no time slots available.
 // TODO : Form submitted screen.
-// TODO : Add another layer of vacancy to booked timings.
+// TODO : Decide a mechanism for showing seats left.
+// TODO : Fix selectedPeople and activityCosts initial values.
 
 import firebase from 'firebase';
 import firebaseConfig from './firebaseConfig';
@@ -546,7 +547,7 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const { $, moment } = window;
 
-const defaultLocationId = 'f1af8dcb-6033-4884-b65d-1530d0eb52fc'; // Default location id for now.
+const defaultLocationId = '5c6bf62bfa1d335ea9ad0181'; // Default location id for now.
 
 export default {
   name: 'App',
@@ -563,13 +564,9 @@ export default {
       selectedActivityPrices: {},
       selectedPeople: {
         adults: 0,
-        students: 0,
-        children: 0,
       },
       activityCosts: {
         adults: 0,
-        students: 0,
-        children: 0,
       },
       selectedAdults: 0,
       selectedDate: null,
@@ -651,8 +648,8 @@ export default {
             min: 0,
             max: 20,
             step: 1,
-          }).on('touchspin.on.startspin', (e) => {
-            this.selectedPeople[val.type] = Number(e.target.value);
+          }).on('touchspin.on.startspin', (event) => {
+            this.selectedPeople[val.type] = Number(event.target.value);
             this.onSelectPeopleCount();
           });
         });
@@ -660,11 +657,9 @@ export default {
     },
     onSelectPeopleCount() {
       const { selectedActivityPrices } = this;
-      this.activityCosts = {
-        adults: Number(selectedActivityPrices.adults) * Number(this.selectedPeople.adults),
-        students: Number(selectedActivityPrices.students) * Number(this.selectedPeople.students),
-        children: Number(selectedActivityPrices.children) * Number(this.selectedPeople.children),
-      };
+      this.validUserTypes.forEach(({ type }) => {
+        this.activityCosts[type] = Number(selectedActivityPrices[type]) * Number(this.selectedPeople[type]);
+      });
       const selectedPeople = Object.values(this.selectedPeople).reduce((a, b) => a + b);
       this.canSelectPeople = !!selectedPeople;
     },
@@ -682,8 +677,9 @@ export default {
       const bookedActivitesRef = database.ref(`booked_activities/${this.selectedActivity.id}/${this.selectedLocation}/${this.selectedDate.valueOf()}`);
       bookedActivitesRef.once('value', (snapshot) => {
         const snapshotVal = snapshot.toJSON();
+        const selectedPeople = Object.values(this.selectedPeople).reduce((a, b) => a + b);
         if (snapshotVal) {
-          this.availableActivitySchedule = Object.values(activitySchedule).filter(val => Object.values(snapshotVal).indexOf(val) === -1);
+          this.availableActivitySchedule = Object.values(activitySchedule).filter(val => selectedPeople <= this.selectedActivity.maxPeople - Number(snapshotVal[val]));
         } else {
           this.availableActivitySchedule = Object.values(activitySchedule);
         }
@@ -711,6 +707,7 @@ export default {
         activityDate: this.selectedDate.format('Do MMMM YYYY'),
         activityTime: this.selectedTime,
         email: this.formDetails.email,
+        people: this.selectedPeople,
       };
 
       $.post('/api/form_submit', finalDetails, (res) => {
