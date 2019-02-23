@@ -1,7 +1,6 @@
 const express = require('express');
 const mailjet = require('node-mailjet')
-  .connect('0c48b3cd702706936baea25d9792eac1test', 'fb3c07f20145022e97efac5df5ba8024test');
-// TODO : Store these in env.
+  .connect(process.env.MAILJET_K, process.env.MAILJET_S);
 const router = express.Router();
 
 router.get('/', (req, res) => {

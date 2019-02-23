@@ -72,7 +72,6 @@ dist/
 *.njsproj
 *.sln
 
-src/firebaseConfig.js
 public/static/js/built
 
 

@@ -4,6 +4,13 @@
  * Module dependencies.
  */
 
+require('dotenv').config();
+
+if (!process.env.FIREBASE_API_KEY) {
+  console.error('Firebase env variable not set! Please set it and re-run the server. Refer to the README for further instructions')
+  return;
+}
+
 const app = require('../app');
 const debug = require('debug')('gravity-park:server');
 const http = require('http');
