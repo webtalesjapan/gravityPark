@@ -21,3 +21,20 @@
     localhost:3000/booking
     ````
   
+##Setting up the env variables
+This step is required to set up the config. The config files cannot be uploaded to git.
+Set up a file named `.env` in project root. 
+Add various env variables to it. 
+
+The list of current env variables: 
+````
+MAILJET_K
+MAILJET_S
+
+FIREBASE_API_KEY
+FIREBASE_AUTH_DOMAIN
+FIREBASE_DATABASE_URL
+FIREBASE_PROJECT_ID
+FIREBASE_STORAGE_BUCKET
+FIREBASE_MESSAGING_SENDER_ID
+````
