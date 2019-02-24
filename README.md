@@ -1,4 +1,4 @@
-##Steps to start
+## Steps to start
  * Make sure you have Node.js installed.
  * Clone the repo and go to the repo folder in a terminal of your choice
  * Install all node modules by using 
@@ -21,7 +21,7 @@
     localhost:3000/booking
     ````
   
-##Setting up the env variables
+## Setting up the env variables
 This step is required to set up the config. The config files cannot be uploaded to git.
 Set up a file named `.env` in project root. 
 Add various env variables to it. 
