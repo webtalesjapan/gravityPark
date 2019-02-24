@@ -490,14 +490,16 @@
 // TODO : Fix selectedPeople and activityCosts initial values.
 
 import firebase from 'firebase';
-import firebaseConfig from './firebaseConfig';
-console.log(firebaseConfig)
-firebase.initializeApp(firebaseConfig);
+import { URLS } from './urls';
+
+const FIREBASE_CONFIG = require('../firebaseConfig');
+
+firebase.initializeApp(FIREBASE_CONFIG);
 
 const database = firebase.database();
 const { $, moment } = window;
 
-const defaultLocationId = '5c6bf62bfa1d335ea9ad0181'; // Default location id for now.
+const defaultLocationId = '5c7246ae2fafeb33a56a3709'; // Default location id for now.
 
 export default {
   name: 'App',
@@ -544,8 +546,9 @@ export default {
     activitiesRef.once('value', (snapshot) => {
       this.activities = snapshot.toJSON();
       this.$nextTick(() => {
-        $('#activity').trigger('chosen:updated');
-        $('#activity').chosen().change(this.onSelectActivity);
+        const $activity = $('#activity');
+        $activity.trigger('chosen:updated');
+        $activity.chosen().change(this.onSelectActivity);
       });
     });
 
@@ -629,7 +632,18 @@ export default {
         const snapshotVal = snapshot.toJSON();
         const selectedPeople = Object.values(this.selectedPeople).reduce((a, b) => a + b);
         if (snapshotVal) {
-          this.availableActivitySchedule = Object.values(activitySchedule).filter(val => selectedPeople <= this.selectedActivity.maxPeople - Number(snapshotVal[val]));
+          this.availableActivitySchedule = Object.values(activitySchedule).filter((val) => {
+            const bookings = snapshotVal[val];
+            let bookedPeople = 0;
+            if (bookings) {
+              Object.values(bookings).forEach((booking) => {
+                if (booking.people) {
+                  bookedPeople += Object.values(booking.people).reduce((a, b) => a + b, 0);
+                }
+              });
+            }
+            return selectedPeople <= this.selectedActivity.maxPeople - bookedPeople;
+          });
         } else {
           this.availableActivitySchedule = Object.values(activitySchedule);
         }
@@ -655,12 +669,16 @@ export default {
         activityName: this.selectedActivity.name,
         totalCost: this.totalCost,
         activityDate: this.selectedDate.format('Do MMMM YYYY'),
-        activityTime: this.selectedTime,
+        activityDateString: this.selectedDate.valueOf(),
+        activityTimeString: this.selectedTime,
+        activityTime: this.formatTime(this.selectedTime),
         email: this.formDetails.email,
-        people: this.selectedPeople,
+        people: JSON.stringify(this.selectedPeople),
+        activityId: this.selectedActivity.id,
+        location: this.selectedLocation,
       };
 
-      $.post('/api/form_submit', finalDetails, (res) => {
+      $.post(URLS.booking_form_submit, finalDetails, (res) => {
         if (Number(res.response.status) === 200) {
           console.log('Submit Success');
           console.log(res);

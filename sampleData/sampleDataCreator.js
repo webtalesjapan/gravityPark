@@ -1,5 +1,5 @@
 // The code template below can be used on json-generator.com to generate the sample data.
-const structure = [
+[
   {
     users: [
       {
@@ -35,8 +35,8 @@ const structure = [
     ],
     locations: [
       {
-        'repeat(3)': {
-          id: '{{objectId()}}',
+        'repeat(1)': {
+          id: '5c7246ae2fafeb33a56a3709',
           name: '{{city()}}',
         },
       },
@@ -101,7 +101,23 @@ const structure = [
             const bookedTimings = this.activity_schedule[act.id][loc.id].filter(time => !!Math.round(Math.random()));
             obj[act.id][loc.id][dateString] = {};
             bookedTimings.forEach((time) => {
-              obj[act.id][loc.id][dateString][time] = `${tags.integer(0, act.maxPeople)}`;
+              const user = this.users[0];
+              obj[act.id][loc.id][dateString][time] = [{
+                id: tags.objectId(),
+                name: user.name,
+                activityName: act.name,
+                totalCost: tags.integer(2000, 19000),
+                activityDate: dateString,
+                activityTime: time,
+                email: user.email,
+                activityId: act.id,
+                location: '5c6bf62bfa1d335ea9ad0181',
+                people: {
+                  adults: tags.integer(0, 2),
+                  children: tags.integer(0, 2),
+                },
+                specialRequests: tags.lorem(1, 'sentences'),
+              }];
             });
           }
         });
