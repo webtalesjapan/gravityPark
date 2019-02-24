@@ -18,7 +18,7 @@
     -2.3 SOCIAL ICON
     -2.4 PRE LOADER
     -2.5 SCROLL TO UP
-  3. HERO AREA
+  3. HERO AREA 
   4. NAVBAR
   5. SLIDER
   6. VIDEO BACKGROUND
@@ -26,7 +26,7 @@
   8. FEATURES SECTION
   9. VIDEO PROMO SECTION
   10. PORTFOLIO SECTION
-  11. PRICING TABLE
+  11. PRICING TABLE 
   12. COUNTER SECTION
   13. TESTIMONIAL AREA
   14. DOWNALOAD APP
@@ -47,10 +47,10 @@
    2. GENERAL
    ========================================================================== */
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Lato', sans-serif;
   color: #333;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 200;
   background: #fff;
   overflow-x: hidden;
 }
@@ -58,7 +58,7 @@ html {
   overflow-x: hidden;
 }
 p {
-  font-size: 14px;
+  font-size: inherit; /* 18px; */
   line-height: 26px;
 }
 a:hover,
@@ -73,18 +73,18 @@ a {
 }
 h1,
 h2,
-h4,
-h5 {
-  font-family: 'Raleway', sans-serif;
-  font-size: 40px;
+h3 {
+  font-family: 'Lato', sans-serif;
+  font-size: xx-large;
   font-weight: 100;
   letter-spacing: 1px;
   line-height: 1.5;
 }
-h3 {
-  font-family: 'Raleway', sans-serif;
-  font-size: 25px;
-  font-weight: 700;
+h4,
+h5 {
+  font-family: 'Lato', sans-serif;
+  font-size: large;
+  font-weight: 500;
   letter-spacing: 1px;
   line-height: 1.5;
   text-align: center;
@@ -113,6 +113,7 @@ a:not([href]):not([tabindex]):hover {
    ========================================================================== */
 .section {
   padding: 80px 0;
+  z-index: 0 !important;
 }
 .section-header {
   color: #fff;
@@ -353,14 +354,15 @@ button:focus {
     -webkit-transform: scale(1);
   }
 }
-/* ==========================================================================
-  -2.5 Scroll To Up
+/* ========================================================================== 
+  -2.5 Scroll To Up 
    ========================================================================== */
 .back-to-top {
   display: none;
   position: fixed;
   bottom: 18px;
   right: 15px;
+  z-index: 1000;
 }
 .back-to-top i {
   display: block;
@@ -381,7 +383,7 @@ button:focus {
    3. Hero Area
    ========================================================================== */
 #hero-area {
-  background: url(../../frontend/img/hero-area.jpg) fixed no-repeat;
+  background: url(../img/hero-area.jpg) fixed no-repeat;
   background-size: cover;
   color: #fff;
   overflow: hidden;
@@ -397,8 +399,23 @@ button:focus {
   opacity: 0.5;
 }
 #hero-area .contents {
-  padding: 100px 0 100px;
+  padding: 65px 0;
   text-align: center;
+}
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) { 
+  #hero-area .contents {
+    padding: 40px 0; /* 100px 0 100px; */
+    text-align: center;
+  }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) { 
+  #hero-area .contents {
+    padding: 40px 0; /* 100px 0 100px; */
+    text-align: center;
+  }
 }
 #hero-area .contents h1 {
   color: #fff;
@@ -422,7 +439,7 @@ button:focus {
   letter-spacing: 0.5px;
 }
 #hero-area .contents .btn {
-  margin: 25px 25px 0px 0px;
+  /* margin: 25px 25px 0px 0px; */
   text-transform: uppercase;
 }
 #hero-area .banner_bottom_btn {
@@ -471,16 +488,37 @@ button:focus {
 }
 #hero-area .logo {
   width: 35vh;
-  margin: auto;
-  padding-bottom: 40px;
+  margin: auto; 
+  padding-bottom: 40px; 
   display: block;
 }
 
-/* Hero Video */
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) { 
+  #hero-area .logo {
+    width: 25vh;
+    margin: auto; 
+    padding-bottom: 20px; 
+    display: block;
+  }
+}
+
+/* Small devices (landscape phones, less than 768px) */
+@media (max-width: 767.98px) { 
+  #hero-area .logo {
+    width: 25vh;
+    margin: auto; 
+    padding-bottom: 20px; 
+    display: block;
+  }
+}
+
+/* Hero Video - Top page banner */
+
 #hero-video {
   position: relative;
   background-color: black;
-  height: 100vh;
+  height: 100vh; 
   min-height: 25rem;
   width: 100%;
   overflow: hidden;
@@ -512,15 +550,26 @@ button:focus {
   z-index: 1;
 }
 
+#hero-video .overlay-white {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+  opacity: 0.2;
+  z-index: 1;
+}
+
 #hero-video .container {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
 #hero-video .logo {
   height: 35vh;
-  margin: auto;
-  padding-bottom: 40px;
+  margin: auto; 
+  padding-bottom: 40px; 
   display: block;
 }
 
@@ -528,9 +577,11 @@ button:focus {
   font-size: 10vh;
 }
 
+/* Image, instead of video, for small devices */
+
 @media (pointer: coarse) and (hover: none) {
   #hero-video {
-    background: url('../../frontend/img/swing.jpg') black no-repeat center center scroll;
+    background: url('../img/swing.jpg') black no-repeat center center scroll;
   }
   #hero-video video {
     display: none;
@@ -788,7 +839,6 @@ button:focus {
    ========================================================================== */
 #about {
   position: relative;
-  background: #f2f2f2;
 }
 .item-boxes {
   text-align: center;
@@ -905,7 +955,7 @@ button:focus {
   9. Video promo Style
    ========================================================================== */
 .video-promo {
-  background-image: url('../../frontend/img/swing.jpg');
+  background-image: url('../img/swing.jpg');
   background-position: cover;
   position: relative;
 }
@@ -1103,7 +1153,7 @@ button:focus {
  12. Counter Section Style
  ========================================================================== */
 .counters {
-  background: url(../../frontend/img/bg1.jpg) fixed;
+  background: url(../img/bg1.jpg) fixed;
   position: relative;
 }
 .counters .facts-item {
@@ -1272,7 +1322,7 @@ button:focus {
   color: #fff;
 }
 /* ==========================================================================
-  16. Clients
+  16. Clients 
    ========================================================================== */
 #clients {
   background: #F2F2F2;
@@ -1294,7 +1344,7 @@ button:focus {
   display: none;
 }
 /* ==========================================================================
-  17. Blog
+  17. Blog 
    ========================================================================== */
 #blog .blog-item-wrapper {
   background: #fff;
@@ -1501,14 +1551,44 @@ button:focus {
 /* ==========================================================================
 20. Footer Style
  ========================================================================== */
-footer {
+#footer {
   background: #333;
-  padding: 60px 0px 30px;
+  padding-top: 50px;
   text-align: center;
-  bottom: 0;
-  /*position: fixed;*/
-  width: 100vw;
+  color: #f4f4f4;
 }
+
+#footer h5 {
+  font-size: 28px;
+}
+
+#footer a {
+  color: #c6c7c8;
+  line-height: 30px;
+}
+
+#footer a:hover {
+  color: #fe6f2e;
+}
+
+#footer a:focus {
+  color: #fe6f2e;
+}
+
+#footer span {
+  color: #c6c7c8;
+  line-height: 30px;
+}
+
+.footer-copyright {
+  background-color: #2d2d2d;
+  margin-top: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  color: #adaeaf;
+}
+
 .site-info p {
   line-height: 34px;
   color: #fff;

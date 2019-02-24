@@ -147,7 +147,7 @@
   width: 1.6em;
   height: 1.6em;
   position: relative;
-  z-index: 5;
+  z-index: 0; /* 5 */
   text-decoration: none;
 }
 .pignose-calendar .pignose-calendar-top .pignose-calendar-top-nav .pignose-calendar-top-value {

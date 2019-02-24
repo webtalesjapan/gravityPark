@@ -16,7 +16,7 @@ router.post('/form_submit', (req, res) => {
         Messages: [
           {
             From: {
-              Email: 'sachdevraunaq@gmail.com',
+              Email: 'no-reply@staging.gravitypark.jp',
               Name: 'Gravity Park',
             },
             To: [

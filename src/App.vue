@@ -1,95 +1,35 @@
 <template>
   <div>
-    <input
-      id="navcheck"
-      type="checkbox"
-      role="button"
-      title="menu"
-    >
-    <label
-      for="navcheck"
-      aria-hidden="true"
-      title="menu"
-    >
-      <span class="burger">
-        <span class="bar">
-          <span class="visuallyhidden">
-            Menu
-          </span>
-          <div
-            id="menu-circle"
-            style="opacity: 0; transform-origin: 50% 50% 0px; transform: matrix(0, 0, 0, 0, 0, 0);"
-          />
-        </span>
-      </span>
-    </label>
-    <nav id="menu">
-      <a href="#">
-        Lorem.
-      </a>
-      <a href="#">
-        Nesciunt!
-      </a>
-      <a href="#">
-        Magnam.
-      </a>
-      <a href="#">
-        Ipsum.
-      </a>
-      <a href="#">
-        Voluptatem.
-      </a>
-      <a href="#">
-        Quibusdam.
-      </a>
-    </nav>
-    <div class="border-bottom">
-      <!-- container -->
-      <div class="row space-100">
-        <div class="col-sm-12">
-          <div class="contents text-center">
-            <img
-              class="img-fluid d-inline-block py-4"
-              src="img/logo_trans.png"
-              width="70vh"
-            >
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Header Section Start -->
+    <header id="hero-area">
+      <div id="header"></div>
+    </header>
     <!-- Header Section End -->
+
+    <!-- Navigation Menu Start -->
+    <section id="navigation">
+    </section>
+    <!-- Navigation Menu End -->
 
     <!-- Main Content Start -->
     <div class="booking-panes">
-      <div class="col-md-9 col-sm-12">
-        <div class="text-center mb-4">
+      <div class="left-form col-md-9 col-sm-12">
+        <div class="text-center mb-4 mt-5 pt-5">
           <h1 class="head-title d-inline-block m-4 pt-2 text-orange font-weight-bold">
             Book with Gravity Park
           </h1><br>
-          <small class="lead mx-4">
-            It only takes a few minutes to book the best thing you’ve ever
-            done!
-          </small><br>
-          <small class="lead mx-4">
-            If you are an agent, <a href="#">
-              Click here
-            </a> to make a booking
-            .
-          </small>
         </div>
 
         <!-- acitivity section -->
         <div id="save_activity">
-          <div class="row p-4">
+          <h5 class="head-title d-inline-block m-4 pt-2 font-weight-bold">
+            Feel Gravity like never before - Book with us in just few simple steps !
+          </h5><br/>
+          <div class="row mt-0" style="padding-top: 0; padding-bottom: 40px;">
             <div class="container">
               <div class="book-form justify-content-md-center mb-10">
-                <div
-                  v-show="activeSection === 0"
-                  id="select-activity"
-                >
-                  <h3 class="text-orange">
-                    Select Activity
-                  </h3><br>
+                <div v-show="activeSection === 0" id="select-activity">
+                  <h5 class="display-6 text-orange mb-4">Select Activity</h5><br>
                   <div style="margin-bottom: 40px;">
                     <select
                       id="activity"
@@ -107,13 +47,8 @@
                     </select>
                   </div>
                 </div>
-                <div
-                  v-show="activeSection === 1"
-                  id="select-number-people"
-                >
-                  <h3 class="text-orange">
-                    Number of People
-                  </h3><br>
+                <div v-show="activeSection === 1" id="select-number-people">
+                  <h5 class="display-6 text-orange mb-4"> Number of people </h5><br>
                   <div
                     v-for="(userType,key) in validUserTypes"
                     :key="key"
@@ -148,16 +83,11 @@
         </div>
 
         <!-- Date section -->
-        <div
-          v-show="activeSection === 2"
-          id="save_date"
-        >
+        <div v-show="activeSection === 2" id="save_date">
           <div class="row mt-0 p-4">
             <div class="container">
               <div class="book-form justify-content-md-center mb-10">
-                <h3 class="text-orange">
-                  Select the Date
-                </h3><br>
+                <h5 class="display-6 text-orange mb-4">Select the Date</h5><br>
                 <div class="col-sm-12 mb-4">
                   <div class="calendar" />
                   <div
@@ -195,9 +125,9 @@
           <div class="row mt-0 p-4">
             <div class="container">
               <div class="book-form justify-content-md-center text-center mb-4">
-                <h3 class="text-orange">
+                <h5 class="display-6 text-orange mb-4">
                   {{ selectedDate && selectedDate.format("Do MMMM YYYY") }}
-                </h3><br>
+                </h5><br>
                 <small class="lead">
                   Select time
                 </small>
@@ -246,9 +176,7 @@
               class="container"
             >
               <div class="book-form justify-content-md-center mb-4">
-                <h3 class="text-orange">
-                  Your Details
-                </h3><br>
+                <h5 class="display-6 text-orange mb-4">Your Details</h5><br>
                 <div class="form-group">
                   <label class="lead">
                     First Name
@@ -458,76 +386,98 @@
     </div>
     <!-- Main Content End -->
 
-    <!-- Footer Section Start -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="social-icons">
-              <ul>
-                <li class="facebook">
-                  <a href="#">
-                    <i class="fa fa-facebook" />
-                  </a>
-                </li>
-                <li class="twitter">
-                  <a href="#">
-                    <i class="fa fa-twitter" />
-                  </a>
-                </li>
-                <li class="google-plus">
-                  <a href="#">
-                    <i class="fa fa-google-plus" />
-                  </a>
-                </li>
-                <li class="linkedin">
-                  <a href="#">
-                    <i class="fa fa-linkedin" />
-                  </a>
-                </li>
-                <li class="pinterest">
-                  <a href="#">
-                    <i class="fa fa-pinterest" />
-                  </a>
-                </li>
-                <li class="dribbble">
-                  <a href="#">
-                    <i class="fa fa-dribbble" />
-                  </a>
-                </li>
-              </ul>
+    <!-- cart -->
+    <div id="cart" class="col-sm-3 bg-gray-light d-none d-md-block">
+      <div class="m-4 text-center">
+        <h2 class="head-title d-inline-block font-weight-bold text-orange-bright">
+          CART
+        </h2>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li
+                v-show="selectedActivity.id"
+                class="list-group-item"
+        >
+          <div class="row d-flex justify-content-between lead">
+            <div class="col-sm-6">
+              {{ selectedActivity.name }}
             </div>
-            <div class="site-info">
-              <p>
-                All copyrights reserved &copy; 2017 - Designed & Developed by <a
-                  rel="nofollow"
-                  href="https://uideck.com"
-                >
-                  UIdeck
-                </a>
-              </p>
+            <!--<div class="col-sm-6 pull-right">-->
+            <!--¥ 0.00-->
+            <!--</div>-->
+          </div>
+        </li>
+        <li
+                v-if="selectedPeople.adults"
+                class="list-group-item"
+        >
+          <div class="row d-flex justify-content-between lead">
+            <div class="col-sm-6">
+              Adults
+            </div>
+            <div class="col-sm-6 pull-right">
+              ¥ {{ activityCosts.adults }}
             </div>
           </div>
-        </div>
-      </div>
-    </footer>
+        </li>
+        <li
+                v-if="selectedPeople.students"
+                class="list-group-item"
+        >
+          <div class="row d-flex justify-content-between lead">
+            <div class="col-sm-6">
+              Students
+            </div>
+            <div class="col-sm-6 pull-right">
+              ¥ {{ activityCosts.students }}
+            </div>
+          </div>
+        </li>
+        <li
+                v-if="selectedPeople.children"
+                class="list-group-item"
+        >
+          <div class="row d-flex justify-content-between lead">
+            <div class="col-sm-6">
+              Children
+            </div>
+            <div class="col-sm-6 pull-right">
+              ¥ {{ activityCosts.children }}
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <h6 class="text-orange-bright">
+            <div class="row d-flex justify-content-between lead font-weight-bold">
+              <div class="col-sm-6">
+                TOTAL
+              </div>
+              <div class="col-sm-6 pull-right">
+                ¥ {{ totalCost }}
+              </div>
+            </div>
+          </h6>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Footer Section Start -->
+    <footer id="footer" class="col-md-9 px-0"></footer>
     <!-- Footer Section End -->
 
     <!-- Go To Top Link -->
-    <a
-      href="#"
-      class="back-to-top"
-    >
-      <i class="lnr lnr-arrow-up" />
+    <a href="#" class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
     </a>
 
-    <!-- loader -->
+    <!-- Loader Start -->
     <div id="loader">
       <div class="spinner">
-        <div class="double-bounce1" />
-        <div class="double-bounce2" />
+        <div class="double-bounce1"></div>
+        <div class="double-bounce2"></div>
       </div>
     </div>
+    <!-- Loader End -->
   </div>
 </template>
 
@@ -541,7 +491,7 @@
 
 import firebase from 'firebase';
 import firebaseConfig from './firebaseConfig';
-
+console.log(firebaseConfig)
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.database();
@@ -732,32 +682,6 @@ export default {
 </script>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
 
 .booking-panes {
   display: flex;

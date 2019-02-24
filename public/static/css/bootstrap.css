@@ -137,7 +137,7 @@ dfn {
 
 b,
 strong {
-  font-weight: bolder;
+  font-weight: 900; /* bolder; */
 }
 
 small {
@@ -3167,7 +3167,7 @@ tbody.collapse.show {
   list-style: none;
   background-color: #fff;
   background-clip: padding-box;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid #fe5000;
   border-radius: 0.25rem;
 }
 
@@ -3269,7 +3269,7 @@ tbody.collapse.show {
   padding: 0.25rem 1.5rem;
   clear: both;
   font-weight: 400;
-  color: #212529;
+  color: #fe5000;
   text-align: inherit;
   white-space: nowrap;
   background-color: transparent;
@@ -3277,15 +3277,15 @@ tbody.collapse.show {
 }
 
 .dropdown-item:hover, .dropdown-item:focus {
-  color: #16181b;
+  color: #f4f4f4;
   text-decoration: none;
-  background-color: #f8f9fa;
+  background-color: #fe5000;
 }
 
 .dropdown-item.active, .dropdown-item:active {
   color: #fff;
   text-decoration: none;
-  background-color: #007bff;
+  background-color: #fe5000;
 }
 
 .dropdown-item.disabled, .dropdown-item:disabled {
@@ -3533,7 +3533,7 @@ tbody.collapse.show {
 .input-group-prepend .btn,
 .input-group-append .btn {
   position: relative;
-  z-index: 2;
+  z-index: 0; /* 2 */
 }
 
 .input-group-prepend .btn + .btn,

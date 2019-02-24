@@ -19,20 +19,22 @@ function submitForm(){
     var message = $("#message").val();
 
 
-    $.ajax({
-        type: "POST",
-        url: "php/form-process.php",
-        data: "name=" + name + "&email=" + email + "&msg_subject=" + msg_subject + "&message=" + message,
-        success : function(text){
-            if (text == "success"){
-                formSuccess();
-            } else {
-                formError();
-                submitMSG(false,text);
-            }
-        }
-    });
-}
+    const finalDetails = {
+        name,
+        email,
+        subject: msg_subject,
+        message,
+    };
+
+    $.post('/api/contact_form', finalDetails, (res) => {
+        if (Number(res.response.status) === 200) {
+        console.log('Contact Form Submit Success');
+        formSuccess();
+    } else {
+        console.log('Contact form Submit Failed');
+        formError();
+    }
+});
 
 function formSuccess(){
     $("#contactForm")[0].reset();
