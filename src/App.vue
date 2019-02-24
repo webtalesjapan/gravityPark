@@ -18,13 +18,13 @@
           <h1 class="head-title d-inline-block m-4 pt-2 text-orange font-weight-bold">
             Book with Gravity Park
           </h1><br>
+          <h5 class="head-title d-inline-block pt-2 text-center">
+            Feel Gravity like never before - Book with us in just few simple steps !
+          </h5>
         </div>
 
         <!-- acitivity section -->
         <div id="save_activity">
-          <h5 class="head-title d-inline-block m-4 pt-2 font-weight-bold">
-            Feel Gravity like never before - Book with us in just few simple steps !
-          </h5><br/>
           <div class="row mt-0" style="padding-top: 0; padding-bottom: 40px;">
             <div class="container">
               <div class="book-form justify-content-md-center mb-10">
@@ -45,7 +45,30 @@
                         {{ activity.name }}
                       </option>
                     </select>
+                    <div class="display_price">
+                      <div>
+                        <h5 class="display-6 text-orange" style="margin-bottom: 0;">Price</h5><br>
+                        <p> Price for the above selected Activity is :-</p>
+                        <table class="list-group list-group-flush">
+                          <tbody class="list-group-item justify-content-between text-18">
+                          <tr class="d-flex justify-content-between">
+                            <td class="font-weight-bold">Adults</td>
+                            <td class="font-weight-bold">3000 Yen</td>
+                          </tr>
+                          <tr class="d-flex justify-content-between">
+                            <td class="font-weight-bold">Students</td>
+                            <td class="font-weight-bold">4000 Yen </td>
+                          </tr>
+                          <tr class="d-flex justify-content-between">
+                            <td class="font-weight-bold">Others</td>
+                            <td class="font-weight-bold">2000 Yen</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
+
                 </div>
                 <div v-show="activeSection === 1" id="select-number-people">
                   <h5 class="display-6 text-orange mb-4"> Number of people </h5><br>
