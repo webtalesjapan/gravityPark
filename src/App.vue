@@ -516,9 +516,11 @@ export default {
       selectedActivityPrices: {},
       selectedPeople: {
         adults: 0,
+        children: 0,
       },
       activityCosts: {
         adults: 0,
+        children: 0,
       },
       selectedAdults: 0,
       selectedDate: null,
@@ -531,7 +533,8 @@ export default {
   },
   computed: {
     totalCost() {
-      return Object.values(this.activityCosts).reduce((a, b) => a + b); // FIXME : Assuming a single activity selection for now.
+      const values = Object.values(this.activityCosts);
+      return values.length ? values.reduce((a, b) => a + b, 0) : 0; // FIXME : Assuming a single activity selection for now.
     },
     validUserTypes() {
       return this.userTypes.filter((val) => {
@@ -602,7 +605,7 @@ export default {
             max: 20,
             step: 1,
           }).on('touchspin.on.startspin', (event) => {
-            this.selectedPeople[val.type] = Number(event.target.value);
+            this.selectedPeople[val.type] = parseInt(event.target.value, 10) || 0;
             this.onSelectPeopleCount();
           });
         });
@@ -611,7 +614,9 @@ export default {
     onSelectPeopleCount() {
       const { selectedActivityPrices } = this;
       this.validUserTypes.forEach(({ type }) => {
-        this.activityCosts[type] = Number(selectedActivityPrices[type]) * Number(this.selectedPeople[type]);
+        if (this.selectedPeople[type]) {
+          this.activityCosts[type] = parseInt(selectedActivityPrices[type], 10) * parseInt(this.selectedPeople[type], 10);
+        }
       });
       const selectedPeople = Object.values(this.selectedPeople).reduce((a, b) => a + b);
       this.canSelectPeople = !!selectedPeople;
