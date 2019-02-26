@@ -2,13 +2,12 @@
   <div>
     <!-- Header Section Start -->
     <header id="hero-area">
-      <div id="header"></div>
+      <div id="header" />
     </header>
     <!-- Header Section End -->
 
     <!-- Navigation Menu Start -->
-    <section id="navigation">
-    </section>
+    <section id="navigation" />
     <!-- Navigation Menu End -->
 
     <!-- Main Content Start -->
@@ -28,8 +27,13 @@
           <div class="row mt-0" style="padding-top: 0; padding-bottom: 40px;">
             <div class="container">
               <div class="book-form justify-content-md-center mb-10">
-                <div v-show="activeSection === 0" id="select-activity">
-                  <h5 class="display-6 text-orange mb-4">Select Activity</h5><br>
+                <div
+                  v-show="activeSection === 0"
+                  id="select-activity"
+                >
+                  <h5 class="display-6 text-orange mb-4">
+                    Select Activity
+                  </h5><br>
                   <div style="margin-bottom: 40px;">
                     <select
                       id="activity"
@@ -70,8 +74,13 @@
                   </div>
 
                 </div>
-                <div v-show="activeSection === 1" id="select-number-people">
-                  <h5 class="display-6 text-orange mb-4"> Number of people </h5><br>
+                <div
+                  v-show="activeSection === 1"
+                  id="select-number-people"
+                >
+                  <h5 class="display-6 text-orange mb-4">
+                    Number of people
+                  </h5><br>
                   <div
                     v-for="(userType,key) in validUserTypes"
                     :key="key"
@@ -106,11 +115,16 @@
         </div>
 
         <!-- Date section -->
-        <div v-show="activeSection === 2" id="save_date">
+        <div
+          v-show="activeSection === 2"
+          id="save_date"
+        >
           <div class="row mt-0 p-4">
             <div class="container">
               <div class="book-form justify-content-md-center mb-10">
-                <h5 class="display-6 text-orange mb-4">Select the Date</h5><br>
+                <h5 class="display-6 text-orange mb-4">
+                  Select the Date
+                </h5><br>
                 <div class="col-sm-12 mb-4">
                   <div class="calendar" />
                   <div
@@ -199,7 +213,9 @@
               class="container"
             >
               <div class="book-form justify-content-md-center mb-4">
-                <h5 class="display-6 text-orange mb-4">Your Details</h5><br>
+                <h5 class="display-6 text-orange mb-4">
+                  Your Details
+                </h5><br>
                 <div class="form-group">
                   <label class="lead">
                     First Name
@@ -410,7 +426,10 @@
     <!-- Main Content End -->
 
     <!-- cart -->
-    <div id="cart" class="col-sm-3 bg-gray-light d-none d-md-block">
+    <div
+      id="cart"
+      class="col-sm-3 bg-gray-light d-none d-md-block"
+    >
       <div class="m-4 text-center">
         <h2 class="head-title d-inline-block font-weight-bold text-orange-bright">
           CART
@@ -418,8 +437,8 @@
       </div>
       <ul class="list-group list-group-flush">
         <li
-                v-show="selectedActivity.id"
-                class="list-group-item"
+          v-show="selectedActivity.id"
+          class="list-group-item"
         >
           <div class="row d-flex justify-content-between lead">
             <div class="col-sm-6">
@@ -431,8 +450,8 @@
           </div>
         </li>
         <li
-                v-if="selectedPeople.adults"
-                class="list-group-item"
+          v-if="selectedPeople.adults"
+          class="list-group-item"
         >
           <div class="row d-flex justify-content-between lead">
             <div class="col-sm-6">
@@ -444,8 +463,8 @@
           </div>
         </li>
         <li
-                v-if="selectedPeople.students"
-                class="list-group-item"
+          v-if="selectedPeople.students"
+          class="list-group-item"
         >
           <div class="row d-flex justify-content-between lead">
             <div class="col-sm-6">
@@ -457,8 +476,8 @@
           </div>
         </li>
         <li
-                v-if="selectedPeople.children"
-                class="list-group-item"
+          v-if="selectedPeople.children"
+          class="list-group-item"
         >
           <div class="row d-flex justify-content-between lead">
             <div class="col-sm-6">
@@ -485,19 +504,25 @@
     </div>
 
     <!-- Footer Section Start -->
-    <footer id="footer" class="col-md-9 px-0"></footer>
+    <footer
+      id="footer"
+      class="col-md-9 px-0"
+    />
     <!-- Footer Section End -->
 
     <!-- Go To Top Link -->
-    <a href="#" class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
+    <a
+      href="#"
+      class="back-to-top"
+    >
+      <i class="fa fa-arrow-up" />
     </a>
 
     <!-- Loader Start -->
     <div id="loader">
       <div class="spinner">
-        <div class="double-bounce1"></div>
-        <div class="double-bounce2"></div>
+        <div class="double-bounce1" />
+        <div class="double-bounce2" />
       </div>
     </div>
     <!-- Loader End -->
@@ -539,9 +564,11 @@ export default {
       selectedActivityPrices: {},
       selectedPeople: {
         adults: 0,
+        children: 0,
       },
       activityCosts: {
         adults: 0,
+        children: 0,
       },
       selectedAdults: 0,
       selectedDate: null,
@@ -554,7 +581,8 @@ export default {
   },
   computed: {
     totalCost() {
-      return Object.values(this.activityCosts).reduce((a, b) => a + b); // FIXME : Assuming a single activity selection for now.
+      const values = Object.values(this.activityCosts);
+      return values.length ? values.reduce((a, b) => a + b, 0) : 0; // FIXME : Assuming a single activity selection for now.
     },
     validUserTypes() {
       return this.userTypes.filter((val) => {
@@ -625,7 +653,7 @@ export default {
             max: 20,
             step: 1,
           }).on('touchspin.on.startspin', (event) => {
-            this.selectedPeople[val.type] = Number(event.target.value);
+            this.selectedPeople[val.type] = parseInt(event.target.value, 10) || 0;
             this.onSelectPeopleCount();
           });
         });
@@ -634,7 +662,9 @@ export default {
     onSelectPeopleCount() {
       const { selectedActivityPrices } = this;
       this.validUserTypes.forEach(({ type }) => {
-        this.activityCosts[type] = Number(selectedActivityPrices[type]) * Number(this.selectedPeople[type]);
+        if (this.selectedPeople[type]) {
+          this.activityCosts[type] = parseInt(selectedActivityPrices[type], 10) * parseInt(this.selectedPeople[type], 10);
+        }
       });
       const selectedPeople = Object.values(this.selectedPeople).reduce((a, b) => a + b);
       this.canSelectPeople = !!selectedPeople;
@@ -727,4 +757,5 @@ export default {
 .booking-panes {
   display: flex;
 }
+
 </style>
