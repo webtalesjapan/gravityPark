@@ -24,7 +24,10 @@
 
         <!-- acitivity section -->
         <div id="save_activity">
-          <div class="row mt-0" style="padding-top: 0; padding-bottom: 40px;">
+          <div
+            class="row mt-0"
+            style="padding-top: 0; padding-bottom: 40px;"
+          >
             <div class="container">
               <div class="book-form justify-content-md-center mb-10">
                 <div
@@ -49,30 +52,44 @@
                         {{ activity.name }}
                       </option>
                     </select>
-                    <div class="display_price">
-                      <div>
-                        <h5 class="display-6 text-orange" style="margin-bottom: 0;">Price</h5><br>
-                        <p> Price for the above selected Activity is :-</p>
-                        <table class="list-group list-group-flush">
-                          <tbody class="list-group-item justify-content-between text-18">
-                          <tr class="d-flex justify-content-between">
-                            <td class="font-weight-bold">Adults</td>
-                            <td class="font-weight-bold">3000 Yen</td>
+                    <div
+                      v-if="selectedActivity.id && validUserTypes.length"
+                      class="display_price"
+                    >
+                      <h5
+                        class="display-6 text-orange"
+                        style="margin-bottom: 0;"
+                      >
+                        Price
+                      </h5><br>
+                      <p> Price for the above selected Activity is :-</p>
+                      <table class="list-group list-group-flush">
+                        <tbody class="list-group-item justify-content-between text-18">
+                          <tr
+                            v-for="userType in validUserTypes"
+                            :key="userType.type"
+                            class="d-flex justify-content-between"
+                          >
+                            <td class="font-weight-bold">
+                              {{ userType.label }}
+                            </td>
+                            <td class="font-weight-bold">
+                              {{ selectedActivityPrices[userType.type] }}
+                            </td>
                           </tr>
-                          <tr class="d-flex justify-content-between">
-                            <td class="font-weight-bold">Students</td>
-                            <td class="font-weight-bold">4000 Yen </td>
-                          </tr>
-                          <tr class="d-flex justify-content-between">
-                            <td class="font-weight-bold">Others</td>
-                            <td class="font-weight-bold">2000 Yen</td>
-                          </tr>
-                          </tbody>
-                        </table>
+                        </tbody>
+                      </table>
+                      <br>
+                      <div class="col-sm-12 text-center">
+                        <a
+                          class="btn btn-orange rounded"
+                          @click="onActivitySelectNextClick"
+                        >
+                          Next
+                        </a>
                       </div>
                     </div>
                   </div>
-
                 </div>
                 <div
                   v-show="activeSection === 1"
@@ -594,6 +611,11 @@ export default {
   mounted() {
     const self = this;
     const activitiesRef = database.ref('activities');
+    const userTypes = database.ref('user_types');
+    userTypes.once('value', (snapshot) => {
+      this.userTypes = snapshot.val();
+    });
+
     activitiesRef.once('value', (snapshot) => {
       this.activities = snapshot.toJSON();
       this.$nextTick(() => {
@@ -611,11 +633,6 @@ export default {
     const activitiesPrices = database.ref('activity_prices');
     activitiesPrices.once('value', (snapshot) => {
       this.activitiesPrices = snapshot.toJSON();
-    });
-
-    const userTypes = database.ref('user_types');
-    userTypes.once('value', (snapshot) => {
-      this.userTypes = snapshot.val();
     });
 
     // Calendar
@@ -644,7 +661,6 @@ export default {
       [this.selectedActivity] = Object.values(this.activities).filter(val => val.id === e.target.value);
       this.selectedActivityPrices = this.activitiesPrices[this.selectedActivity.id][this.selectedLocation];
       this.selectedActivitySchedule = this.activitiesSchedule[this.selectedActivity.id][this.selectedLocation];
-      this.activeSection = 1; // Go to choose number of people.
 
       this.$nextTick(() => {
         this.validUserTypes.forEach((val) => {
@@ -658,6 +674,9 @@ export default {
           });
         });
       });
+    },
+    onActivitySelectNextClick() {
+      this.activeSection = 1; // Go to choose number of people.
     },
     onSelectPeopleCount() {
       const { selectedActivityPrices } = this;
