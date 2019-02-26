@@ -669,8 +669,7 @@ export default {
             max: 20,
             step: 1,
           }).on('touchspin.on.startspin', (event) => {
-            this.selectedPeople[val.type] = parseInt(event.target.value, 10) || 0;
-            this.onSelectPeopleCount();
+            this.onSelectPeopleCount(val.type, Number(event.target.value));
           });
         });
       });
@@ -678,13 +677,10 @@ export default {
     onActivitySelectNextClick() {
       this.activeSection = 1; // Go to choose number of people.
     },
-    onSelectPeopleCount() {
+    onSelectPeopleCount(type, num) {
+      this.selectedPeople[type] = num;
       const { selectedActivityPrices } = this;
-      this.validUserTypes.forEach(({ type }) => {
-        if (this.selectedPeople[type]) {
-          this.activityCosts[type] = parseInt(selectedActivityPrices[type], 10) * parseInt(this.selectedPeople[type], 10);
-        }
-      });
+      this.activityCosts[type] = parseInt(selectedActivityPrices[type], 10) * num;
       const selectedPeople = Object.values(this.selectedPeople).reduce((a, b) => a + b);
       this.canSelectPeople = !!selectedPeople;
     },
