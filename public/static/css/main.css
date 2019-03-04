@@ -84,7 +84,7 @@ h4,
 h5 {
   font-family: 'Lato', sans-serif;
   font-size: large;
-  font-weight: 500;
+  font-weight: 500 !important;
   letter-spacing: 1px;
   line-height: 1.5;
   text-align: center;
@@ -383,12 +383,14 @@ button:focus {
    3. Hero Area
    ========================================================================== */
 #hero-area {
-  background: url(../img/hero-area.jpg) fixed no-repeat;
   background-size: cover;
   color: #fff;
   overflow: hidden;
   position: relative;
+  background-position: center;
+  background-attachment:scroll;
 }
+
 #hero-area .overlay {
   position: absolute;
   width: 100%;
@@ -466,7 +468,7 @@ button:focus {
   top: 0px;
   left: 0px;
   background: #000;
-  opacity: 0.5;
+  opacity: 0.15;
 }
 #hero-area .overlay-white {
   position: absolute;
@@ -475,7 +477,7 @@ button:focus {
   top: 0px;
   left: 0px;
   background: #fff;
-  opacity: 0.5;
+  opacity: 0.15;
 }
 #hero-area .overlay-orange {
   position: absolute;
@@ -483,8 +485,8 @@ button:focus {
   height: 100%;
   top: 0px;
   left: 0px;
-  background: #FE5000;
-  opacity: 0.3;
+  background: #FE6F2E;
+  opacity: 0.15;
 }
 #hero-area .logo {
   width: 35vh;
@@ -557,9 +559,15 @@ button:focus {
   height: 100%;
   width: 100%;
   background-color: #fff;
-  opacity: 0.2;
+  opacity: 0.15;
   z-index: 1;
 }
+
+/*#hero-video h1{*/
+  /*background-color: rgba(51,51,51,0.5);*/
+  /*padding:10px;*/
+  /*border-radius: 5px;*/
+/*}*/
 
 #hero-video .container {
   position: relative;
@@ -574,18 +582,7 @@ button:focus {
 }
 
 #hero-video h1 {
-  font-size: 10vh;
-}
-
-/* Image, instead of video, for small devices */
-
-@media (pointer: coarse) and (hover: none) {
-  #hero-video {
-    background: url('../img/swing.jpg') black no-repeat center center scroll;
-  }
-  #hero-video video {
-    display: none;
-  }
+  font-size: 9vh;
 }
 
 /* ==========================================================================
@@ -955,7 +952,7 @@ button:focus {
   9. Video promo Style
    ========================================================================== */
 .video-promo {
-  background-image: url('../img/swing.jpg');
+  background-image: url('../img/video_back.jpg');
   background-position: cover;
   position: relative;
 }
@@ -994,7 +991,7 @@ button:focus {
   top: 0px;
   left: 0px;
   background: #FE5000;
-  opacity: 0.8;
+  opacity: 0.6;
   filter: alpha(opacity=80);
 }
 /* ==========================================================================
@@ -1713,4 +1710,38 @@ button:focus {
 }
 .post-meta ul li a:hover {
   color: #FE5000;
+}
+
+.img-top-about {
+  background: url(../img/about.jpg) fixed no-repeat;
+}
+
+.img-top-access {
+  background: url(../img/access.jpg) fixed no-repeat;
+}
+
+.img-top-contact {
+  background: url(../img/contact.jpg) fixed no-repeat;
+}
+
+.img-top-faq {
+  background: url(../img/faq.jpg) fixed no-repeat;
+}
+
+.img-top-chichibu {
+  background: url(../img/chichibu.jpg) fixed no-repeat;
+}
+
+.img-top-walk {
+  background: url(../img/walk.jpg) fixed no-repeat;
+}
+
+.img-top-zip {
+  background: url(../img/zip.jpg) fixed no-repeat;
+}
+
+.about_back_img {
+  padding:50px;
+  background: linear-gradient(rgba(255, 255, 255, 0.80), rgba(255, 255, 255, 0.80)), url(http://themes.startbootstrap.com/spectrum-v1.2.0/assets/img/demo-bgs/freelancer-cta.jpg);
+  background-position: 50% 0px;
 }
