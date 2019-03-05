@@ -20,4 +20,9 @@ app.use(express.static(path.join(__dirname, 'public/static/')));
 app.use('/api', apiRouter);
 app.use('/booking', bookingRouter);
 
+/* This section should always be in the end! */
+app.use((req, res) => {
+  res.status(404).sendFile(path.resolve(__dirname, 'public', '404.html'));
+});
+
 module.exports = app;
