@@ -340,7 +340,7 @@
                     class="btn btn-common"
                     type="submit"
                     :disabled="!formDetails.termsCheck && 'disabled'"
-                    @click.prevent="onSubmitForm"
+                    @click.prevent="onFormNext"
                   >
                     Place Order
                   </button>
@@ -352,6 +352,185 @@
                 </div>
               </div>
             </form>
+          </div>
+        </div>
+
+        <div
+          v-show="activeSection === 5"
+          class="row"
+        >
+          <div
+            id="book_confirm"
+            class="col-sm-12"
+          >
+            <div class="contact-form">
+              <div class="text-center mt-5 mb-4 pt-5">
+                <h1 class="head-title d-inline-block m-4 pt-2 text-orange font-weight-bold">
+                  CONFIRM DETAILS
+                </h1><br>
+                <h5 class="display-6 text-muted px-4">
+                  Following is your selection summary. Kindly make sure that information is correct.<br>If not, click on the back button to correct it.
+                </h5>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12 mb-4">
+                  <table class="time-calendar list-group list-group-flush">
+                    <tbody class="list-group-item justify-content-between">
+                      <tr class="d-flex justify-content-between">
+                        <td class="font-weight-bold">
+                          Activity
+                        </td>
+                        <td>{{ selectedActivity.name }}</td>
+                      </tr>
+                      <tr class="d-flex justify-content-between">
+                        <td class="font-weight-bold">
+                          No. of people
+                        </td>
+                        <td>{{ Object.values(selectedPeople).reduce((a, b) => a + b) }}</td>
+                      </tr>
+                      <tr class="d-flex justify-content-between">
+                        <td class="font-weight-bold">
+                          Date
+                        </td>
+                        <td>{{ selectedDate && selectedDate.format('Do MMMM YYYY') }}</td>
+                      </tr>
+                      <tr class="d-flex justify-content-between">
+                        <td class="font-weight-bold">
+                          Time Slot
+                        </td>
+                        <td>{{ formatTime(selectedTime) }}</td>
+                      </tr>
+                      <tr class="d-flex justify-content-between">
+                        <td class="font-weight-bold">
+                          First Name
+                        </td>
+                        <td>{{ formDetails.firstName }}</td>
+                      </tr>
+                      <tr class="d-flex justify-content-between">
+                        <td class="font-weight-bold">
+                          Last Name
+                        </td>
+                        <td>{{ formDetails.lastName }}</td>
+                      </tr>
+                      <tr class="d-flex justify-content-between">
+                        <td class="font-weight-bold">
+                          Email
+                        </td>
+                        <td>{{ formDetails.email }}</td>
+                      </tr>
+                      <tr class="d-flex justify-content-between">
+                        <td class="font-weight-bold">
+                          Phone Number
+                        </td>
+                        <td>{{ formDetails.phone }}</td>
+                      </tr>
+                      <tr class="d-flex justify-content-between">
+                        <td class="font-weight-bold">
+                          Special Requirements
+                        </td>
+                        <td>{{ formDetails.special }}</td>
+                      </tr>
+                      <tr class="d-flex justify-content-between lead text-orange">
+                        <td class="font-weight-bold">
+                          TOTAL
+                        </td>
+                        <td class="font-weight-bold">
+                          ¥ {{ totalCost }}/-
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="col-sm-12 text-center mb-4 pb-4">
+                <a
+                  class="btn btn-secondary rounded mb-4"
+                  @click="onConfirmDetaisBack"
+                >
+                  Back
+                </a>
+                <a
+                  class="btn btn-orange rounded mb-4"
+                  @click="onSubmitForm"
+                >
+                  BOOK
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="book_thankyou"
+          class="col-sm-12"
+          v-show="activeSection === 6"
+        >
+          <div class="contact-form">
+            <div class="text-center mt-5 mb-4 pt-5">
+              <h1 class="head-title d-inline-block m-4 pt-2 text-orange font-weight-bold">
+                You are all set !!
+              </h1><br>
+              <h5 class="display-6 text-muted px-4">
+                Get Ready for the Best Experience of your Life
+              </h5>
+              <div class="row d-flex mb-5 py-4">
+                <div class="col-sm-12 text-center">
+                  <br>
+                  <img
+                    class="img-responsive"
+                    src="img/thank-you.png"
+                    width="150vh"
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-12 text-center mb-4 pb-4">
+              <a
+                href="/"
+                class="btn btn-secondary rounded mb-4"
+              >
+                Back to Home
+              </a>
+              <a
+                href="/booking"
+                class="btn btn-orange rounded mb-4"
+              >
+                Another Booking
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+        <div
+          v-show="activeSection === 7"
+          class="container"
+        >
+          <h1 class="head-title text-orange text-center font-weight-bold">
+            Booking Failed
+          </h1>
+          <div class="row d-flex mb-5 py-4">
+            <div class="col-md-12 col-sm-6 text-center">
+              <img
+                class="img-responsive mb-4"
+                src="img/errors/011-close.png"
+                width="150vh"
+              ><br>
+              <h5 class="display-6 text-dark mb-5 mt-4">
+                Sorry, Your booking request could not be completed. Please contact us.
+              </h5>
+            </div>
+
+            <div class="col-sm-12 text-center mb-4 pb-4">
+              <a
+                href="contact.html"
+                class="btn btn-orange rounded mb-4"
+              >
+                Contact Us
+              </a>
+            </div>
           </div>
         </div>
 
@@ -544,6 +723,7 @@
     </div>
     <!-- Loader End -->
   </div>
+  </div>
 </template>
 
 <script>
@@ -728,6 +908,12 @@ export default {
     onFormBack() {
       this.activeSection = 3; // Go to choose time.
     },
+    onFormNext() {
+      this.activeSection = 5;
+    },
+    onConfirmDetaisBack() {
+      this.activeSection = 4;
+    },
     onSubmitForm() {
       // Add time to booked times.
       const finalDetails = {
@@ -748,11 +934,9 @@ export default {
 
       $.post(URLS.booking_form_submit, finalDetails, (res) => {
         if (Number(res.response.status) === 200) {
-          console.log('Submit Success');
-          console.log(res);
-          this.activeSection = 5; // Form Submitted Page.
+          this.activeSection = 6; // Form Submitted Page.
         } else {
-          console.log('Submit Failed');
+          this.activeSection = 7;
         }
       });
     },
