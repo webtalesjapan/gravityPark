@@ -1,15 +1,11 @@
 const express = require('express');
 const firebase = require('firebase');
-const firebaseConfig = require('../../firebaseConfig');
-const moment = require('moment');
 
 const router = express.Router();
 const uniqid = require('uniqid');
 
 const mailjet = require('node-mailjet')
   .connect(process.env.MAILJET_K, process.env.MAILJET_S);
-
-firebase.initializeApp(firebaseConfig);
 
 router.post('/form_submit', (req, res) => {
   const { body: formData } = req;
