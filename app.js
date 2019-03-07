@@ -30,7 +30,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public/static/')));
 
-
 app.use('/api', apiRouter);
 app.use('/booking', bookingRouter);
 app.use('/api', apiRouter);
