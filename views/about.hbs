@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="keywords" content="Gravity, Landing Page, Home, Book now">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="author" content="Grayrids">
+
+  <title>404 | Gravity Park</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body>
+
+<!-- Header Section Start -->
+<header id="hero-area">
+  <div id="header"></div>
+</header>
+<!-- Header Section End -->
+
+<!-- Navigation Menu Start -->
+<section id="navigation">
+</section>
+<!-- Navigation Menu End -->
+
+<!-- Error 404 Start -->
+<section id="contact-details" class="section pb-0">
+  <div class="container">
+    <h1 class="head-title text-orange text-center font-weight-bold">WHAT THE FUCK</h1>
+    <div class="row d-flex mb-5">
+      <div class="col-md-12 col-sm-6 text-center">
+        <img class="img-responsive" src="img/errors/001-404-1.png" width="200vh"><br>
+        <h5 class="display-6 text-dark mb-5 mt-4">Sorry, but the page you are looking for has not been found. Kindly check the URL again.</h5>
+      </div>
+
+      <div class="col-sm-12 text-center mb-4 pb-4">
+        <a href="/" class="btn btn-orange rounded mb-4">{{{__ "text to test"}}}</a> <!-- Calling the text from json
+        file -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Error 404 End -->
+
+<!-- Footer Start -->
+<footer id="footer">
+</footer>
+<!-- Footer End -->
+
+<!-- Go To Top Button Start -->
+<a href="#" class="back-to-top">
+  <i class="lnr lnr-arrow-up"></i>
+</a>
+<!-- Go To Top Button End -->
+
+<!-- Loader Start -->
+<div id="loader">
+  <div class="spinner">
+    <div class="double-bounce1"></div>
+    <div class="double-bounce2"></div>
+  </div>
+</div>
+<!-- Loader End -->
+
+<!-- jQuery first, then Tether, then Bootstrap JS. -->
+<script src="js/jquery-min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/main.js"></script>
+
+<script src="js/jquery.sticky.js"></script><!-- Sticky Navigation Menu -->
+<script>
+    $(document).ready(function(){
+        $("#navigation").sticky({topSpacing:0});
+    });
+    $(function(){
+        $("#header").load("header.html");
+        $("#footer").load("footer.html");
+        $("#navigation").load("navigation.html");
+    });
+</script>
+
+
+</body>
+</html>
